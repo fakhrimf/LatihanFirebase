@@ -9,38 +9,38 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
+public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> {
     OnUserClickListener listener;
-    private List<Artist> artistList;
+    private List<Track> trackList;
 
-    public ArtistAdapter(List<Artist> artistList, OnUserClickListener listener) {
-        this.artistList = artistList;
+    public TrackAdapter(List<Track> artistList, OnUserClickListener listener) {
+        this.trackList = artistList;
         this.listener = listener;
     }
 
     @Override
-    public ArtistAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrackAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_rv_row, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ArtistAdapter.ViewHolder holder, int position) {
-        final Artist a = artistList.get(position);
-        holder.tvNama.setText(a.getName());
-        holder.tvGenre.setText(a.getGenre());
+    public void onBindViewHolder(TrackAdapter.ViewHolder holder, int position) {
+        final Track a = trackList.get(position);
+        holder.tvTrack.setText(a.getNamaTrack());
+        holder.tvRating.setText(a.getRating()+"");
         holder.bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onUserClick(a.getId(),a.getName());
+                listener.onUserClick(a.getId(),a.getRating()+"");
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return artistList.size();
+        return trackList.size();
     }
 
     public interface OnUserClickListener {
@@ -48,13 +48,13 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvNama, tvGenre;
+        public TextView tvTrack, tvRating;
         ConstraintLayout bg;
 
         public ViewHolder(View v) {
             super(v);
-            tvNama = v.findViewById(R.id.tvNama);
-            tvGenre = v.findViewById(R.id.tvGenre);
+            tvTrack = v.findViewById(R.id.tvNama);
+            tvRating = v.findViewById(R.id.tvGenre);
             bg = v.findViewById(R.id.bg);
         }
     }

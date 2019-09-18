@@ -1,5 +1,6 @@
 package com.pwpb.latihanfirebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ArtistAdapter.OnUserClickListener{
 
     //Assigning value for XML Stuffs
     EditText edtNama;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 rv.setLayoutManager(lm);
 
                 //Creating RecyclerView Adapter
-                ArtistAdapter artistAdapter = new ArtistAdapter(artistList);
+                ArtistAdapter artistAdapter = new ArtistAdapter(artistList,MainActivity.this);
                 //Attaching Adapter
                 rv.setAdapter(artistAdapter);
                 artistAdapter.notifyDataSetChanged();
@@ -116,5 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Getting Reference from the FireBaseDatabase
         dbArtist = FirebaseDatabase.getInstance().getReference("artists");
+    }
+
+    @Override
+    public void onUserClick(String id, String nama) {
+        Intent i = new Intent(this,TracksAct.class);
+        System.out.println(id);
+        i.putExtra("id",id);
+        i.putExtra("nama",nama);
+        startActivity(i);
     }
 }

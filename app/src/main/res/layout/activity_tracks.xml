@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Tracks">
+    tools:context=".TracksAct">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvArtistName"
+        android:text="Artist's Name"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/edtLayout"
@@ -15,7 +26,7 @@
         app:hintEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvArtistName">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/edtTrack"
@@ -25,20 +36,12 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:text="1"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
-        app:layout_constraintTop_toBottomOf="@+id/edtLayout" />
-
-    <TextView
+        android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="5"
+        android:text="1"
         app:layout_constraintStart_toEndOf="@+id/seekBar"
         app:layout_constraintTop_toBottomOf="@+id/edtLayout" />
 
@@ -51,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/edtLayout"/>
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddTrack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -61,10 +64,10 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rvTrack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddTrack" />
 
 </android.support.constraint.ConstraintLayout>
