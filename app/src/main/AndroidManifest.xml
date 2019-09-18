@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TracksAct"></activity>
+        <activity android:name=".Dialog"></activity>
+        <activity android:name=".TracksAct" />
         <activity android:name=".rvRow" />
         <activity android:name=".MainActivity">
             <intent-filter>

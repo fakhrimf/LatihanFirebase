@@ -3,9 +3,11 @@ package com.pwpb.latihanfirebase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +70,69 @@ public class MainActivity extends AppCompatActivity implements ArtistAdapter.OnU
         }
     }
 
+    //Update Artist Function, Updating Artist name and genre to FireBase
+    private boolean updateArtist(String id, String name, String genre) {
+        //Getting the specified Artist reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("artists").child(id);
+
+        //Updating Artist
+        Artist artist = new Artist(id, name, genre);
+        dR.setValue(artist);
+        Toast.makeText(getApplicationContext(), artist.getName()+" Updated", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    //Delete Artist Function
+    private boolean deleteArtist(String id) {
+        //Getting the specified Artist reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("artists").child(id);
+        //Removing Artist
+        dR.removeValue();
+        //Getting the Tracks reference for the specified Artist
+        DatabaseReference drTracks = FirebaseDatabase.getInstance().getReference("tracks").child(id);
+        //Removing all Tracks
+        drTracks.removeValue();
+        Toast.makeText(getApplicationContext(), "Artist Deleted", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    //Showing Update and Delete Dialog
+    private void showUpdateDeleteDialog(final String artistId, String artistName) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextName = dialogView.findViewById(R.id.editTextName);
+        final Spinner spinnerGenre = dialogView.findViewById(R.id.spinnerGenres);
+        final Button buttonUpdate = dialogView.findViewById(R.id.buttonUpdateArtist);
+        final Button buttonDelete = dialogView.findViewById(R.id.buttonDeleteArtist);
+
+        dialogBuilder.setTitle(artistName);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = editTextName.getText().toString().trim();
+                String genre = spinnerGenre.getSelectedItem().toString();
+                if (!name.isEmpty()) {
+                    updateArtist(artistId, name, genre);
+                    b.dismiss();
+                }
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteArtist(artistId);
+                b.dismiss();
+            }
+        });
+    }
+
     //Overriding onStart
     @Override
     protected void onStart() {
@@ -126,5 +191,10 @@ public class MainActivity extends AppCompatActivity implements ArtistAdapter.OnU
         i.putExtra("id",id);
         i.putExtra("nama",nama);
         startActivity(i);
+    }
+
+    @Override
+    public void onUserEdit(String id, String nama) {
+        showUpdateDeleteDialog(id,nama);
     }
 }

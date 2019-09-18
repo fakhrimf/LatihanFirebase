@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,6 +37,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
                 listener.onUserClick(a.getId(),a.getName());
             }
         });
+        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onUserEdit(a.getId(),a.getName());
+            }
+        });
     }
 
     @Override
@@ -45,10 +52,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
     public interface OnUserClickListener {
         void onUserClick(String id, String nama);
+        void onUserEdit(String id, String nama);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNama, tvGenre;
+        public ImageView ivEdit;
         ConstraintLayout bg;
 
         public ViewHolder(View v) {
@@ -56,6 +65,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             tvNama = v.findViewById(R.id.tvNama);
             tvGenre = v.findViewById(R.id.tvGenre);
             bg = v.findViewById(R.id.bg);
+            ivEdit = v.findViewById(R.id.ivEdit);
         }
     }
 }
