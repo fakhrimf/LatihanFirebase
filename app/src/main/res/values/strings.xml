@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LatihanFirebase</string>
+    <string-array name="genres">
+        <item>Rock</item>
+        <item>Electric</item>
+        <item>Electronica</item>
+        <item>R and B</item>
+        <item>Pop</item>
+        <item>Alternative</item>
+        <item>Rap</item>
+        <item>Outrun</item>
+        <item>Synthwave</item>
+        <item>Trap</item>
+        <item>Other</item>
+    </string-array>
+</resources>
